@@ -18,7 +18,7 @@ const RepoDetails = ({ repoData }: { repoData: IRepoList[] }) => {
 
   return (
     <>
-      {repoDetais && (
+      {repoDetais ? (
         <>
           <Typography variant="h4" sx={{ margin: "10px" }}>
             Repo Details
@@ -67,7 +67,8 @@ const RepoDetails = ({ repoData }: { repoData: IRepoList[] }) => {
             </Paper>
           </Box>
         </>
-      )}
+      ):
+      <h4>No Records Found</h4>}
     </>
   );
 };
