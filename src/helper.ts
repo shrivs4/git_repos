@@ -1,5 +1,5 @@
 export const extractRequiredFields = (fields: Array<string>, repos: any) => {
-  return repos.map((repo: any) => {
+  return repos?.map((repo: any) => {
     // Pick only the required fields using reduce
     return fields.reduce((acc: any, field: any) => {
       if (repo[field] !== undefined) {

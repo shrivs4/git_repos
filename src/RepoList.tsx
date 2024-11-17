@@ -28,7 +28,7 @@ const RepoList = ({
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={() => navigate(`/${id}`)}>
+          <Button data-testid='repobutton' size="small" onClick={() => navigate(`/${id}`)}>
             Visit Repo
           </Button>
         </CardActions>
@@ -46,12 +46,13 @@ const RepoList = ({
             justifyContent: "center",
             alignItems: "center",
           }}
+          data-testid='loadingtest'
         >
           <CircularProgress />
         </Box>
       ) : (
         <>
-          <Typography variant="h4" sx={{ margin: "10px" }}>
+          <Typography variant="h4" sx={{ margin: "10px" }} data-testid='RepoListTest'>
             Repo List
           </Typography>
           <Box

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IRepoList } from "./helper";
 import { useParams } from "react-router-dom";
 import { Paper, Typography, Link, Box } from "@mui/material";
@@ -20,7 +20,7 @@ const RepoDetails = ({ repoData }: { repoData: IRepoList[] }) => {
     <>
       {repoDetais ? (
         <>
-          <Typography variant="h4" sx={{ margin: "10px" }}>
+          <Typography variant="h4" sx={{ margin: "10px" }} data-testid='repodetails-test'>
             Repo Details
           </Typography>
           <Box

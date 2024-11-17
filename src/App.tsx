@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
 import RepoList from "./RepoList";
 import RepoDetails from "./RepoDetails";
 import { useEffect, useState } from "react";
@@ -23,16 +22,14 @@ function App() {
   const [loading,setLoading] = useState<boolean>(true);
 
   const getRepoLists = async () => {
-    await axios
-      .get(url)
-      .then((res) => {
-        setRepoList(extractRequiredFields(required_fields, res.data));
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false)
-      });
+    try {
+      const res = await axios.get(url);
+      setRepoList(extractRequiredFields(required_fields, res.data));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
