@@ -1,14 +1,4 @@
-export const extractRequiredFields = (fields: Array<string>, repos: any) => {
-  return repos?.map((repo: any) => {
-    // Pick only the required fields using reduce
-    return fields.reduce((acc: any, field: any) => {
-      if (repo[field] !== undefined) {
-        acc[field] = repo[field];
-      }
-      return acc;
-    }, {});
-  });
-};
+//interfaces
 
 export interface IRepoList {
   id: number;
@@ -21,7 +11,32 @@ export interface IRepoList {
   watchers: string;
 }
 
+//functions
+export const extractRequiredFields = (fields: Array<string>, repos: any) => {
+  return repos?.map((repo: any) => {
+    // Pick only the required fields using reduce
+    return fields.reduce((acc: any, field: any) => {
+      if (repo[field] !== undefined) {
+        acc[field] = repo[field];
+      }
+      return acc;
+    }, {});
+  });
+};
 
+//constants
+export const required_fields = [
+  "id",
+  "name",
+  "description",
+  "url",
+  "language",
+  "forks",
+  "open_issues",
+  "watchers",
+];
+
+// mockData
 export const mockData:IRepoList[]  = [
   {
     id: 123,

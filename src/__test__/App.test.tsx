@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "../App";
-import  useFetch  from "../useFetch";
+import  useFetch  from "../hooks/useFetch";
 
 const mockData = [
     {

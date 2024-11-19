@@ -1,19 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RepoList from "./RepoList";
-import RepoDetails from "./RepoDetails";
-import useFetch from "./useFetch";
-import { extractRequiredFields, IRepoList } from "./helper";
-
-const required_fields = [
-  "id",
-  "name",
-  "description",
-  "url",
-  "language",
-  "forks",
-  "open_issues",
-  "watchers",
-];
+import RepoList from "./components/RepoList";
+import RepoDetails from "./components/RepoDetails";
+import useFetch from "./hooks/useFetch";
+import { extractRequiredFields, IRepoList, required_fields } from "./utils/helper";
 
 function App() {
   const url = "https://api.github.com/orgs/godaddy/repos";

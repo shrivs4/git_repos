@@ -1,7 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import RepoList from "../RepoList";
-import { mockData } from "../helper";
+import { mockData } from "../utils/helper";
 
 
 describe("repolist test", () => {
