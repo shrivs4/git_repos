@@ -1,19 +1,8 @@
 import { MemoryRouter } from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import RepoList from "../RepoList";
+import { mockData } from "../helper";
 
-export const mockData = [
-  {
-    id: 123,
-    name: "Shriyam",
-    description: "Sample",
-    url: "https:www.sample.com",
-    language: "JavaScript",
-    forks: 2,
-    open_issues: 2,
-    watchers: "4",
-  },
-];
 
 describe("repolist test", () => {
   test("should render repolistComponent", () => {
@@ -26,7 +15,7 @@ describe("repolist test", () => {
       </MemoryRouter>
     );
     expect(screen.getByTestId('RepoListTest')).toBeInTheDocument();
-    expect(fireEvent.click(screen.getByTestId('repobutton')))
+    expect(fireEvent.click(screen.getAllByTestId('repobutton')[0]))
 
   });
   test("should render repolistComponent in loading state", () => {
@@ -39,5 +28,18 @@ describe("repolist test", () => {
       </MemoryRouter>
     );
     expect(screen.getByTestId('loadingtest')).toBeInTheDocument();
+  });
+
+  test("should change page on next button", () => {
+    render(
+      <MemoryRouter>
+        <RepoList 
+            repoData = {mockData}
+            loading = {false}
+        />
+      </MemoryRouter>
+    );
+    fireEvent.click(screen.getByTestId('KeyboardArrowRightIcon'));
+    expect(screen.getByText('132')).toBeInTheDocument();
   });
 });

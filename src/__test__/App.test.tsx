@@ -1,7 +1,6 @@
-import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "../App";
+import  useFetch  from "../useFetch";
 
 const mockData = [
     {
@@ -120,24 +119,55 @@ const mockData = [
     }
 ]
 
-describe('App Component',()=>{
-    let mock: MockAdapter;
+jest.mock("../useFetch", () => jest.fn());
 
-    beforeEach(()=>{
-        mock = new MockAdapter(axios);
-    })
+describe("App Component", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    afterEach(()=>{
-        mock.reset()
-    })
+  test("should trigger api call", async () => {
+    // Mock the behavior of `useFetch`
+    (useFetch as jest.Mock).mockReturnValue({
+      data: mockData,
+      loading: false,
+      error: null,
+    });
 
-    test('should trigger api call',async()=>{
-        mock.onGet('https://api.github.com/orgs/godaddy/repos').reply(200,mockData);
-        render(
-                <App />
-        )
-        await waitFor(()=> {
-            expect(screen.getByTestId('RepoListTest')).toBeInTheDocument();
-        })
-    })
-})
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("RepoListTest")).toBeInTheDocument();
+    });
+  });
+
+  test("should trigger api call with null data", async () => {
+    // Mock the behavior of `useFetch`
+    (useFetch as jest.Mock).mockReturnValue({
+      data: null,
+      loading: false,
+      error: null,
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("RepoListTest")).toBeInTheDocument();
+    });
+  });
+
+  test("should trigger api call with null data and error as true", async () => {
+    // Mock the behavior of `useFetch`
+    (useFetch as jest.Mock).mockReturnValue({
+      data: null,
+      loading: false,
+      error: true,
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("error-test")).toBeInTheDocument();
+    });
+  });
+});

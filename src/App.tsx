@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RepoList from "./RepoList";
 import RepoDetails from "./RepoDetails";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import useFetch from "./useFetch";
 import { extractRequiredFields, IRepoList } from "./helper";
 
 const required_fields = [
@@ -18,29 +17,25 @@ const required_fields = [
 
 function App() {
   const url = "https://api.github.com/orgs/godaddy/repos";
-  const [repoList, setRepoList] = useState<Array<IRepoList>>([]);
-  const [loading,setLoading] = useState<boolean>(true);
+  const { data, loading, error } = useFetch<IRepoList[]>(url);
 
-  const getRepoLists = async () => {
-    try {
-      const res = await axios.get(url);
-      setRepoList(extractRequiredFields(required_fields, res.data));
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const repoList = data ? extractRequiredFields(required_fields, data) : [];
 
-  useEffect(() => {
-    getRepoLists();
-  }, []);
+  if (error) {
+    return <div data-testid='error-test'>Error: {error}</div>;
+  }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<RepoList repoData={repoList} loading = {loading} />} path="/" />
-        <Route element={<RepoDetails repoData={repoList}/>} path="/:id" />
+        <Route
+          path="/"
+          element={<RepoList repoData={repoList} loading={loading} />}
+        />
+        <Route
+          path="/:id"
+          element={<RepoDetails repoData={repoList} />}
+        />
       </Routes>
     </BrowserRouter>
   );
