@@ -1,6 +1,6 @@
 import { MemoryRouter } from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import RepoList from "../RepoList";
+import RepoList from "../components/RepoList";
 import { mockData } from "../utils/helper";
 
 

@@ -1,5 +1,5 @@
 import { MemoryRouter, Route, Routes } from "react-router-dom"
-import RepoDetails from "../RepoDetails"
+import RepoDetails from "../components/RepoDetails"
 import { mockData } from "../utils/helper"
 import { render, screen } from "@testing-library/react"
 
